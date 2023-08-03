@@ -2,6 +2,18 @@
 
 public class Ticket : IComparable<Ticket>
 {
+    private double price;
+    private DateTime dateTime;
+    private int id;
+
+
+    public Ticket(double price, DateTime dateTime, int id)
+    {
+        this.price = price;
+        this.dateTime = dateTime;
+        this.id = id;
+    }
+
     public int CompareTo(Ticket? other)
     {
         throw new NotImplementedException();
@@ -14,6 +26,6 @@ public class Ticket : IComparable<Ticket>
 
     public override string ToString()
     {
-        throw new NotImplementedException();
+        return $"Ticket Price:{price} \n time:{dateTime}";
     }
 }
