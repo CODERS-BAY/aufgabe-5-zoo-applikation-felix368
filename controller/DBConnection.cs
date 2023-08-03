@@ -5,7 +5,7 @@ namespace ZooAPI.controller;
 
 public class DBConnection
 {
-    public static async Task testConection()
+    public static async Task NewSqlCommand(String sqlCommand)
     {
         var builder = new MySqlConnectionStringBuilder
         {
@@ -20,13 +20,26 @@ public class DBConnection
         {
             Console.WriteLine("Opening Conction");
             await conn.OpenAsync();
+
+
+            await using (var command = conn.CreateCommand())
+            {
+                command.CommandText = sqlCommand;
+
+                // exicute statment in database 
+                await using (var reander = await command.ExecuteReaderAsync())
+                {
+                    while (await reander.ReadAsync())
+                    {
+                        Console.WriteLine($"Reading from table= ({reander.GetInt32(0)},{reander.GetString(1)})");
+                    }
+                }
+            }
             
-            await GetTiere(conn);
             
             Console.WriteLine("closing Connection");
         }
-
-        Console.Read();
+        
     }
 
     private static async Task GetTiere(MySqlConnection conn)

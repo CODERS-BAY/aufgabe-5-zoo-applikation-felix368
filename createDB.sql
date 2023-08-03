@@ -76,7 +76,7 @@ create table Tickets(
                         id int primary key auto_increment,
                         preis double,
                         zeitpunkt timestamp  not null 
-)
+);
 
 
 
@@ -123,5 +123,6 @@ insert into tiere(gattung, nahrung, gehegeId) value
 insert into Tickets(preis) value 
 (8.50);
 
+select * from Tickets;
 
 
