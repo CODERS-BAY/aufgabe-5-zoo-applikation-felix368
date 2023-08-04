@@ -3,14 +3,14 @@
 public class Ticket : IComparable<Ticket>
 {
     private double price;
-    private DateTime dateTime;
+    private DateTime date;
     private int id;
 
 
     public Ticket(double price, DateTime dateTime, int id)
     {
         this.price = price;
-        this.dateTime = dateTime;
+        this.date = dateTime;
         this.id = id;
     }
 
@@ -26,6 +26,16 @@ public class Ticket : IComparable<Ticket>
 
     public override string ToString()
     {
-        return $"Ticket Price:{price} \n time:{dateTime}";
+        return $"Ticket Price:{price} \n time:{date}";
+    }
+
+    public Dictionary<string, string> getTicketValues()
+    {
+        Dictionary<string, string> value = new Dictionary<string, string>();
+        value.Add("id",$"{id}");
+        value.Add("price", $"{price}");
+        value.Add("timeStamp",$"{date}");
+        
+        return value;
     }
 }

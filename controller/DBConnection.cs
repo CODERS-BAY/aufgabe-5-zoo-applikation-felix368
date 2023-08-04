@@ -1,21 +1,23 @@
 ﻿using Microsoft.VisualBasic;
 using MySqlConnector;
+using ZooAPI.model;
 
 namespace ZooAPI.controller;
 
 public class DBConnection
 {
-    public static async Task NewSqlCommand(String sqlCommand)
+    static MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
     {
-        var builder = new MySqlConnectionStringBuilder
-        {
-            Server = "localhost",
-            Database = "Zoo",
-            UserID = "root",
-            Password = "admin",
-            SslMode = MySqlSslMode.Disabled
-        };
-
+        Server = "localhost",
+        Database = "Zoo",
+        UserID = "root",
+        Password = "admin",
+        SslMode = MySqlSslMode.Disabled
+    };
+    
+    
+    public static async Task NewSqlInsertCommand(String sqlCommand)
+    {
         await using (var conn = new MySqlConnection(builder.ConnectionString))
         {
             Console.WriteLine("Opening Conction");
@@ -31,32 +33,69 @@ public class DBConnection
                 {
                     while (await reander.ReadAsync())
                     {
-                        Console.WriteLine($"Reading from table= ({reander.GetInt32(0)},{reander.GetString(1)})");
+                        Console.WriteLine($"{reander.GetInt32(0)}");
+                        //Console.WriteLine($"Reading from table= ({reander.GetInt32(0)},{reander.GetString(1)})");
+                        
                     }
                 }
             }
-            
-            
-            Console.WriteLine("closing Connection");
         }
         
     }
 
-    private static async Task GetTiere(MySqlConnection conn)
+    
+    
+    
+    public static async Task<List<Ticket>> getSoldTicketsByDate(String sqlCommand)
     {
-        
-        await using (var command = conn.CreateCommand())
+        List<Ticket> tickets = new List<Ticket>();
+        await using (var conn = new MySqlConnection(builder.ConnectionString))
         {
-            command.CommandText = "select * from tiere;";
+            Console.WriteLine("Opening Conction");
+            await conn.OpenAsync();
 
-            // exicute statment in database 
-            await using (var reander = await command.ExecuteReaderAsync())
+            
+            await using (var command = conn.CreateCommand())
             {
-                while (await reander.ReadAsync())
+                command.CommandText = sqlCommand;
+                
+                
+                // exicute statment in database 
+                await using (var reander = await command.ExecuteReaderAsync())
                 {
-                    Console.WriteLine($"Reading from table= ({reander.GetInt32(0)},{reander.GetString(1)})");
+                    
+                    while (await reander.ReadAsync())
+                    {
+                        Ticket currentTicket = new Ticket(reander.GetDouble(1),reander.GetDateTime(2),reander.GetInt32(0));
+                        
+                        tickets.Add(currentTicket);
+                        
+                    }
                 }
             }
         }
+
+        return tickets;
     }
+    
+    
+    
+    
+    
+    
+
+    private static async Task printTickets(MySqlDataReader reander)
+    {
+        
+        while (await reander.ReadAsync())
+        {
+            Console.WriteLine($"{reander.GetInt32(0)}");
+            //Console.WriteLine($"Reading from table= ({reander.GetInt32(0)},{reander.GetString(1)})");
+                        
+        }
+        
+    }
+    
+    
+    
 }

@@ -1,3 +1,5 @@
+using ZooAPI.model;
+
 namespace ZooAPI.controller;
 
 public class KassiererController
@@ -78,11 +80,47 @@ public class KassiererController
         foreach (var ticketPrice in ticketPrices)
         {
             Console.WriteLine(ticketPrice);
-            await DBConnection.NewSqlCommand($"insert into Tickets(preis) value (8.50);");
+            await DBConnection.NewSqlInsertCommand($"insert into Tickets(preis) value (8.50);");
             sum =sum + ticketPrice;
         }
         
         //await DBConnection.NewSqlCommand($"insert into Tickets(preis) value (8.50);");
         return sum;
     }
+
+
+    public static async Task<Dictionary<string,string>[]> getSoldTicets(DateTime date)
+    {
+        Console.WriteLine($"select * from Tickets where date(zeitpunkt) ='{date.ToString("yyyy-MM-dd")}'");
+        var tickets = await DBConnection.getSoldTicketsByDate($"select * from Tickets where date(zeitpunkt) ='{date.ToString("yyyy-MM-dd")}'");
+
+        
+        
+        var ticketValues = new Dictionary<string,string>[tickets.Count];
+
+        int counter = 0;
+        foreach (var ticket in tickets)
+        {
+            
+            Console.WriteLine(ticket.ToString());
+            ticketValues[counter] = ticket.getTicketValues();
+            counter += 1;
+        }
+
+        Console.WriteLine(ticketValues);
+
+        return ticketValues;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

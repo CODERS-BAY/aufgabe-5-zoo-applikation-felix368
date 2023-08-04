@@ -1,5 +1,5 @@
 using ZooAPI.controller;
-
+using System.Text.Json;
 // await DBConnection.testConection();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +8,7 @@ var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
 
-app.MapPost("/BuyTicket", async (HttpRequest request) =>
+app.MapPost("/api/BuyTicket", async (HttpRequest request) =>
     {
         using var reader = new StreamReader(request.Body);
         var body = await reader.ReadToEndAsync();
@@ -20,6 +20,17 @@ app.MapPost("/BuyTicket", async (HttpRequest request) =>
         
         return totalPrice;
     });
+
+app.MapGet("/api/getTickets/{date}", async (DateTime date) =>
+{
+    // format 2023-08-03
+    var tickets = await KassiererController.getSoldTicets(date);
+    
+    
+    return tickets;
+});
+
+
 
 
 app.Run();

@@ -125,4 +125,4 @@ insert into Tickets(preis) value
 
 select * from Tickets;
 
-
+select * from Tickets where date(zeitpunkt) = '2023-08-03'
