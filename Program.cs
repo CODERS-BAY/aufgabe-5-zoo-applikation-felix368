@@ -33,4 +33,19 @@ app.MapGet("/api/getAnimal/{animal}", async (string animal) =>
 });
 
 
+app.MapGet("/api/Tierpfleger/getAnimal/{id}", async (string id) =>
+{
+    
+    var animals = await Tierpfleger.getAnimalbyPflegerId(id);
+    return animals;
+});
+
+
+app.MapGet("/api/Tierpfleger/updateAnimal/{AnimalId}&{columnNr}&{newData}", async (string id,string columnNr,string newData) =>
+{
+    var animals = await Tierpfleger.getAnimalbyPflegerId(id);
+    return animals;
+});
+
+
 app.Run();

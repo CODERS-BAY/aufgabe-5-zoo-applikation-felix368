@@ -129,3 +129,14 @@ select * from Tickets where date(zeitpunkt) = '2023-08-03';
 
 
 select * from tiere where gattung = "tiger";
+
+
+select tiere.id,tiere.gattung,tiere.nahrung,tiere.gehegeId from tiere join 
+gehege g on g.Id = tiere.gehegeId join 
+mitarbeiter m on g.mitarbeiterId = m.id
+where mitarbeiterId = "1";
+
+#select tiere.id,tiere.gattung,tiere.nahrung,tiere.gehegeId from tiere join gehege g on g.Id = tiere.gehegeId join mitarbeiter m on g.mitarbeiterId = m.idwhere mitarbeiterId = {Int32.TryParse(pflegerId)};"
+
+update tiere set nahrung ="Fleisch" where id=6;
+

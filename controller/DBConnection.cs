@@ -82,7 +82,7 @@ public class DBConnection
 
    
     
-    public static async Task<List<Animal>> getTiereByGattung(String sqlCommand)
+    public static async Task<List<Animal>> getTiere(String sqlCommand)
     {
         List<Animal> animals = new List<Animal>();
         await using (var conn = new MySqlConnection(builder.ConnectionString))
@@ -117,7 +117,37 @@ public class DBConnection
     
     
     
-    
+    public static async Task<List<Animal>> updateTierebyId(String sqlCommand)
+    {
+        List<Animal> animals = new List<Animal>();
+        await using (var conn = new MySqlConnection(builder.ConnectionString))
+        {
+            Console.WriteLine("Opening Conction");
+            await conn.OpenAsync();
+
+            
+            await using (var command = conn.CreateCommand())
+            {
+                command.CommandText = sqlCommand;
+                
+                
+                // exicute statment in database 
+                await using (var reander = await command.ExecuteReaderAsync())
+                {
+                    
+                    while (await reander.ReadAsync())
+                    {
+                        var currentAnimal = new Animal(reander.GetInt32(0),reander.GetString(1),reander.GetString(2),reander.GetInt32(3));
+                        
+                        animals.Add(currentAnimal);
+                        
+                    }
+                }
+            }
+        }
+
+        return animals;
+    }
     
     
 }

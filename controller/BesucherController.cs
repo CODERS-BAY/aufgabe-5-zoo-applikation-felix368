@@ -7,7 +7,7 @@ public class BesucherController
     public static async Task<Dictionary<string, string>[]> getAnimalbyGattung(string searchAnimal)
     {
         
-        var animals = await DBConnection.getTiereByGattung($"select * from tiere where gattung = '{searchAnimal}';");
+        var animals = await DBConnection.getTiere($"select * from tiere where gattung = '{searchAnimal}';");
         
         
         var animalvalues = new Dictionary<string,string>[animals.Count];
