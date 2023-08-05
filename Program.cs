@@ -12,12 +12,9 @@ app.MapPost("/api/BuyTicket", async (HttpRequest request) =>
     {
         using var reader = new StreamReader(request.Body);
         var body = await reader.ReadToEndAsync();
-
-
-        Console.WriteLine(body);
+        
+        
         var totalPrice = await KassiererController.InsertTicketInDb(body);
-        
-        
         return totalPrice;
     });
 
@@ -25,12 +22,15 @@ app.MapGet("/api/getTickets/{date}", async (DateTime date) =>
 {
     // format 2023-08-03
     var tickets = await KassiererController.getSoldTicets(date);
-    
-    
     return tickets;
 });
 
-
+app.MapGet("/api/getAnimal/{animal}", async (string animal) =>
+{
+    
+    var animals = await BesucherController.getAnimalbyGattung(animal);
+    return animals;
+});
 
 
 app.Run();

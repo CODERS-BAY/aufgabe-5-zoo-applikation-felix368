@@ -123,6 +123,9 @@ insert into tiere(gattung, nahrung, gehegeId) value
 insert into Tickets(preis) value 
 (8.50);
 
-select * from Tickets;
+select * from tiere;
 
-select * from Tickets where date(zeitpunkt) = '2023-08-03'
+select * from Tickets where date(zeitpunkt) = '2023-08-03';
+
+
+select * from tiere where gattung = "tiger";
