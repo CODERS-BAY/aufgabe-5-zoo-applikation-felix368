@@ -80,7 +80,7 @@ public class KassiererController
         foreach (var ticketPrice in ticketPrices)
         {
             Console.WriteLine(ticketPrice);
-            await DBConnection.NewSqlInsertCommand($"insert into Tickets(preis) value (8.50);");
+            await SqlCommands.NewSqlInsertCommand($"insert into Tickets(preis) value (8.50);");
             sum =sum + ticketPrice;
         }
         
@@ -92,7 +92,7 @@ public class KassiererController
     public static async Task<Dictionary<string,string>[]> getSoldTicets(DateTime date)
     {
         Console.WriteLine($"select * from Tickets where date(zeitpunkt) ='{date.ToString("yyyy-MM-dd")}'");
-        var tickets = await DBConnection.getSoldTicketsByDate($"select * from Tickets where date(zeitpunkt) ='{date.ToString("yyyy-MM-dd")}'");
+        var tickets = await SqlCommands.getSoldTicketsByDate($"select * from Tickets where date(zeitpunkt) ='{date.ToString("yyyy-MM-dd")}'");
 
         
         

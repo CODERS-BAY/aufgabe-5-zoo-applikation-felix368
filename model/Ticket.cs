@@ -33,7 +33,7 @@ public class Ticket : IComparable<Ticket>
     {
         Dictionary<string, string> value = new Dictionary<string, string>();
         value.Add("id",$"{id}");
-        value.Add("price", $"{price}");
+        value.Add("price", $"{price}"); 
         value.Add("timeStamp",$"{date}");
         
         return value;
