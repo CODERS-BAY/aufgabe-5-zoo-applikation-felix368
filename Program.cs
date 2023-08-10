@@ -58,9 +58,9 @@ app.MapGet("/api/Tierpfleger/getAnimal/{id}", async (string id) =>
 });
 
 
-app.MapGet("/api/Tierpfleger/updateAnimal/{AnimalId}&{columnNr}&{newData}", async (string AnimalId,string columnNr,string newData) =>
+app.MapGet("/api/Tierpfleger/updateAnimal/{AnimalId}&{columnName}&{newData}", async (string AnimalId,string columnName,string newData) =>
 {
-    await Tierpfleger.updateAnimal(AnimalId,columnNr,newData);
+    await Tierpfleger.updateAnimal(AnimalId,columnName,newData);
     return;
 });
 

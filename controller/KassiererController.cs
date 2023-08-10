@@ -111,16 +111,5 @@ public class KassiererController
 
         return ticketValues;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }

@@ -24,7 +24,7 @@ public class DBConnection
         
     }
 
-    async static Task<MySqlCommand> getConnection()
+    public async static Task<MySqlCommand> getConnection()
     {
         if (Connection == null)
         {
