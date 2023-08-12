@@ -1,9 +1,25 @@
+using System.Net;
 using ZooAPI.controller;
 using System.Text.Json;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.OpenApi.Models;
 
-
+var  MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policyBuilder =>
+        {
+            policyBuilder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+ 
+
 // set up open api
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
@@ -14,14 +30,18 @@ builder.Services.AddSwaggerGen(option =>
 
 // set up app for using swagger
 var app = builder.Build();
+
+app.UseCors(MyAllowSpecificOrigins);
+
 app.UseSwagger();
+
 app.UseSwaggerUI(option =>
 {
     option.SwaggerEndpoint("/swagger/v1/swagger.json", "zoo");
     option.RoutePrefix = string.Empty;
 });
 
-
+app.UseCors(MyAllowSpecificOrigins);
 
 app.MapGet("/", () => "Hello World!");
 
@@ -32,7 +52,7 @@ app.MapPost("/api/BuyTicket", async (HttpRequest request) =>
         
         
         var totalPrice = await KassiererController.InsertTicketInDb(body);
-        return totalPrice;
+        return Results.Json(totalPrice,statusCode: 200) ;
     });
 
 app.MapGet("/api/getTickets/{date}", async (DateTime date) =>
