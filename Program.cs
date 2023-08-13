@@ -59,20 +59,20 @@ app.MapGet("/api/getTickets/{date}", async (DateTime date) =>
 {
     // format 2023-08-03
     var tickets = await KassiererController.getSoldTicets(date);
+    Console.WriteLine(tickets.ToString());
     return tickets;
 });
 
-app.MapGet("/api/getAnimal/{animal}", async (string animal) =>
+app.MapGet("/api/getAnimal/{animalName}", async (string animalName) =>
 {
     
-    var animals = await BesucherController.getAnimalbyGattung(animal);
+    var animals = await BesucherController.getAnimalbyGattung(animalName);
     return animals;
 });
 
 
 app.MapGet("/api/Tierpfleger/getAnimal/{id}", async (string id) =>
 {
-    
     var animals = await Tierpfleger.getAnimalbyPflegerId(id);
     return animals;
 });

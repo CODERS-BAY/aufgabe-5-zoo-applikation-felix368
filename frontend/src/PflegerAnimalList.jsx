@@ -9,31 +9,36 @@ import Paper from '@mui/material/Paper';
 
 
 
-export default function TicketList(value) {
-    console.log(value.value[0])
+export default function PflegerAnimalList({value,onTableRowClick}) {
+    console.log(value[0])
 
-    
-    
-    
+
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
                         <TableCell align="center">ID</TableCell>
-                        <TableCell align="center">Preis</TableCell>
-                        <TableCell align="center">Zeitpunkt</TableCell>
+                        <TableCell align="center">Name</TableCell>
+                        <TableCell align="center">Nahrung</TableCell>
+                        <TableCell align="center">Gehege</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {value.value.map((row) => (
+                    {value.map((row) => (
                         <TableRow
                             key={row.name}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            className="PflegerAnimalList"
+                            onClick={() => {
+                                onTableRowClick(row.id);
+                            }}
                         >
                             <TableCell align="center">{row.id}</TableCell>
-                            <TableCell align="center">{row.price}</TableCell>
-                            <TableCell align="center">{row.timeStamp}</TableCell>
+                            <TableCell align="center">{row.gattung}</TableCell>
+                            <TableCell align="center">{row.nahrung}</TableCell>
+                            <TableCell align="center">{row.gehegeId}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
