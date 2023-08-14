@@ -84,7 +84,6 @@ public class KassiererController
             sum =sum + ticketPrice;
         }
         
-        //await DBConnection.NewSqlCommand($"insert into Tickets(preis) value (8.50);");
         return sum;
     }
 

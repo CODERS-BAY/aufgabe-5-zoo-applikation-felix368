@@ -80,8 +80,7 @@ public class SqlCommands
 
         var command = await DBConnection.getConnection();
         command.CommandText = sqlCommand;
-
-                
+        
                 
         // exicute statment in database 
         await using (var reander = await command.ExecuteReaderAsync())
@@ -95,8 +94,7 @@ public class SqlCommands
                         
             }
         }
-            
-                
+
         return animals;
     }
     

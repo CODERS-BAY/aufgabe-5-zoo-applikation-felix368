@@ -109,6 +109,9 @@ insert into mitarbeiter(position, mitarbeiterAlter, name, shopId, kassaId) value
     ('Tierpfleger','25','max',null,null);
 
 insert into mitarbeiter(position, mitarbeiterAlter, name, shopId, kassaId) value
+    ('Tierpfleger','36','Tim',null,null);
+
+insert into mitarbeiter(position, mitarbeiterAlter, name, shopId, kassaId) value
     ('Kassierer','45','Franz',null,1);
 
 
@@ -117,13 +120,29 @@ insert into gehege(volumen, standort, gehegeart, mitarbeiterid) value
 insert into gehege(volumen, standort, gehegeart, mitarbeiterid) value
     (500,'Wald','Käfig',1);
 
+
+insert into gehege(volumen, standort, gehegeart, mitarbeiterid) value
+    (500,'Wald','Käfig',3);
+
 insert into tiere(gattung, nahrung, gehegeId) value 
 ('Tiger','Fleisch',2);
+
+insert into tiere(gattung, nahrung, gehegeId) value
+    ('Tigermücke','Nektar',2);
+
+insert into tiere(gattung, nahrung, gehegeId) value
+    ('affen ','Blätter',2);
+
+insert into tiere(gattung, nahrung, gehegeId) value
+    ('warzenschwein ','Wurzeln ',5);
+
 
 insert into Tickets(preis) value 
 (8.50);
 
 select * from tiere;
+select * from mitarbeiter;
+select * from gehege;
 
 select * from Tickets where date(zeitpunkt) = '2023-08-03';
 
@@ -134,9 +153,10 @@ select * from tiere where gattung = "tiger";
 select tiere.id,tiere.gattung,tiere.nahrung,tiere.gehegeId from tiere join 
 gehege g on g.Id = tiere.gehegeId join 
 mitarbeiter m on g.mitarbeiterId = m.id
-where mitarbeiterId = "1";
+where mitarbeiterId = "5";
 
 #select tiere.id,tiere.gattung,tiere.nahrung,tiere.gehegeId from tiere join gehege g on g.Id = tiere.gehegeId join mitarbeiter m on g.mitarbeiterId = m.idwhere mitarbeiterId = {Int32.TryParse(pflegerId)};"
 
 update tiere set nahrung ="Fleisch" where id=6;
 
+update gehege set mitarbeiterId=5 where Id= 5;

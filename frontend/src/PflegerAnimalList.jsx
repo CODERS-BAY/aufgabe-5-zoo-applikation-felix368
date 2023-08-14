@@ -10,7 +10,6 @@ import Paper from '@mui/material/Paper';
 
 
 export default function PflegerAnimalList({value,onTableRowClick}) {
-    console.log(value[0])
 
 
 
@@ -32,7 +31,7 @@ export default function PflegerAnimalList({value,onTableRowClick}) {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             className="PflegerAnimalList"
                             onClick={() => {
-                                onTableRowClick(row.id);
+                                onTableRowClick(row);
                             }}
                         >
                             <TableCell align="center">{row.id}</TableCell>

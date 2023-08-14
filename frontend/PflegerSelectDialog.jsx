@@ -10,71 +10,51 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 
-export default function PlegerSelectDialog(value) {
+export default function PlegerSelectDialog({animal,okClick,cancelClick}) {
     
-    const [open, setOpen] = React.useState(value);
-    const [age, setAge] = React.useState('');
+    
+    
+    const [columnName, setColumnName] = React.useState('');
+    const [newData, setNewData] = React.useState();
 
     const handleChange = (event) => {
-        setAge(Number(event.target.value) || '');
+        setColumnName(event.target.value || '');
     };
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = (event, reason) => {
-        if (reason !== 'backdropClick') {
-            setOpen(false);
-        }
-    };
 
     return (
         <div>
-            <Button onClick={handleClickOpen}>Open select dialog</Button>
-            <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
-                <DialogTitle>Fill the form</DialogTitle>
+           
+            <Dialog open={true}>
+                <DialogTitle>Daten Ändern {animal.gattung}</DialogTitle>
                 <DialogContent>
-                    <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
-                            <InputLabel htmlFor="demo-dialog-native">Age</InputLabel>
-                            <Select
-                                native
-                                value={age}
-                                onChange={handleChange}
-                                input={<OutlinedInput label="Age" id="demo-dialog-native" />}
-                            >
-                                <option aria-label="None" value="" />
-                                <option value={10}>Ten</option>
-                                <option value={20}>Twenty</option>
-                                <option value={30}>Thirty</option>
-                            </Select>
-                        </FormControl>
-                        <FormControl sx={{ m: 1, minWidth: 120 }}>
-                            <InputLabel id="demo-dialog-select-label">Age</InputLabel>
-                            <Select
-                                labelId="demo-dialog-select-label"
-                                id="demo-dialog-select"
-                                value={age}
-                                onChange={handleChange}
-                                input={<OutlinedInput label="Age" />}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
+                    
+                    <FormControl sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel>Category</InputLabel>
+                        <Select
+                            value={columnName}
+                            onChange={handleChange}
+                            input={<OutlinedInput label="Age" />}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={"gattung"}>Gattung</MenuItem>
+                            <MenuItem value={"nahrung"}>Nahrung</MenuItem>
+                            <MenuItem value={"gehegeId"}>GehegeId</MenuItem>
+                        </Select>
+                        <TextField onChange={(e)=>{ setNewData(e.target.value)}} label="Neue Daten" variant="outlined" />
+                    </FormControl>
+                    
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Ok</Button>
+                    <Button onClick={()=>{cancelClick()}}>Cancel</Button>
+                    <Button onClick={()=>{okClick(animal.id,columnName,newData)}}>Ok</Button>
                 </DialogActions>
             </Dialog>
         </div>
     );
 }
+
