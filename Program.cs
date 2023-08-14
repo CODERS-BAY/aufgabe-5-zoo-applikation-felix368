@@ -50,7 +50,6 @@ app.MapPost("/api/BuyTicket", async (HttpRequest request) =>
         using var reader = new StreamReader(request.Body);
         var body = await reader.ReadToEndAsync();
         
-        
         var totalPrice = await KassiererController.InsertTicketInDb(body);
         return Results.Json(totalPrice,statusCode: 200) ;
     });
@@ -59,22 +58,20 @@ app.MapGet("/api/getTickets/{date}", async (DateTime date) =>
 {
     // format 2023-08-03
     var tickets = await KassiererController.getSoldTicets(date);
-    Console.WriteLine(tickets.ToString());
-    return tickets;
+    return Results.Json(tickets);
 });
 
 app.MapGet("/api/getAnimal/{animalName}", async (string animalName) =>
 {
-    
     var animals = await BesucherController.getAnimalbyGattung(animalName);
-    return animals;
+    return Results.Json(animals);
 });
 
 
 app.MapGet("/api/Tierpfleger/getAnimal/{id}", async (string id) =>
 {
     var animals = await Tierpfleger.getAnimalbyPflegerId(id);
-    return animals;
+    return Results.Json(animals);
 });
 
 

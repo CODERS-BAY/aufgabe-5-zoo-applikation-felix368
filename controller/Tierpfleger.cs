@@ -6,7 +6,7 @@ public class Tierpfleger
     public static async Task<Dictionary<string, string>[]> getAnimalbyPflegerId(string pflegerId)
     {
         
-        var animals = await SqlCommands.getTiere($"select tiere.id,tiere.gattung,tiere.nahrung,tiere.gehegeId from tiere join gehege g on g.Id = tiere.gehegeId join mitarbeiter m on g.mitarbeiterId = m.id where mitarbeiterId = {pflegerId};");
+        var animals = await SqlCommands.getTiere($"select tiere.id,tiere.gattung,tiere.nahrung,tiere.gehegeId from tiere join gehege g on g.Id = tiere.gehegeId join mitarbeiter m on g.mitarbeiterId = m.id where mitarbeiterId = '{pflegerId}';");
         
         var animalvalues = new Dictionary<string,string>[animals.Count];
         

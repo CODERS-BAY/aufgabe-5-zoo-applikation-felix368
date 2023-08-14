@@ -14,7 +14,7 @@ export default function SuccessSnackbar() {
     return (
         <Snackbar open={true}>
             <Alert  severity="success" sx={{ width: '100%' }}>
-                Die Tickets wurden erfolgreich gespeichert!
+                Erfolgreich gespeichert!
             </Alert>
         </Snackbar>
        

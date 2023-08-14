@@ -1,5 +1,6 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
   
 }
 
@@ -23,3 +24,15 @@
   margin-left: 20%;
 }
 
+.startCard{
+  display: inline-block;
+  margin: 20px;
+  margin-top: 10%;
+}
+
+
+
+:hover.PflegerAnimalList{
+  background: #ced2d6;
+  cursor: pointer;
+}

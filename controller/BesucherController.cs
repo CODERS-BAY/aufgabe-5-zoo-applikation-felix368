@@ -22,9 +22,7 @@ public class BesucherController
             counter += 1;
         }
 
-
         return animalvalues;
-
     }
     
     

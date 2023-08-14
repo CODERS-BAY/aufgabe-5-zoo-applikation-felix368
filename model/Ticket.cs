@@ -36,6 +36,6 @@ public class Ticket : IComparable<Ticket>
         value.Add("price", $"{price}"); 
         value.Add("timeStamp",$"{date}");
         
-        return value;
+        return  value;
     }
 }

@@ -10,13 +10,13 @@ function App() {
     const navigate = useNavigate();
     return (
         <>
-            <div onClick={()=>navigate("/TierPfleger")}>
+            <div className={"startCard"} onClick={()=>navigate("/TierPfleger")}>
                 <CategorCard   title={"TierPfleger"} imagePath={".\\lemurs.jpg"}/>
             </div>
-            <div onClick={()=>navigate("/Kassierer")}>
+            <div className={"startCard"} onClick={()=>navigate("/Kassierer")}>
                 <CategorCard   title={"Kassa"} imagePath={".\\shop.jpg"}/>
             </div>
-            <div onClick={()=>navigate("/Besucher")}>
+            <div className={"startCard"} onClick={()=>navigate("/Besucher")}>
                 <CategorCard  title={"Besucher"} imagePath={".\\family.jpg"}/>
             </div>
 
