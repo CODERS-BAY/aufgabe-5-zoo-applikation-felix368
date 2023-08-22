@@ -18,7 +18,7 @@ export default function Kassierer() {
     
     const [adultCount, setAdultCount] = useState(0);
     const [childCount, setChild] = useState(0);
-    const [snackBar, setsnackBar] = useState(false);
+    const [snackBar, setSnackBar] = useState(false);
     const [ticketSearchDate, setTicketSearchDate] = useState("");
     const [showTable, setShowTable] = useState(false);
     const [ticketData, setTicketData] = useState();
@@ -40,17 +40,18 @@ export default function Kassierer() {
         };
         //const data = await fetch('http://localhost:5207/api/BuyTicket', requestOptions)
 
-        return  await new Promise(async(resolve)=>{
+        
             const response = await fetch('http://localhost:5207/api/BuyTicket',requestOptions);
-            const data = response.json();
+            let data = null;
             
             if(response.status==200){
+                data = await response.json();
                 await showSnackbar();
                 setChild(0);
                 setAdultCount(0)
             }
-            resolve(data);
-        })
+            return data;
+        
         
     }
     
@@ -59,7 +60,9 @@ export default function Kassierer() {
     async function getTicketByDate(e){
 
         const date = new Date(e)
-        const finaldate =date.getFullYear() + '-' + (date.getMonth() <= 9 ? `0${date.getMonth()+1}` : date.getMonth()+1) + '-' + (date.getDate() <= 9 ? `0${date.getDate()}` : date.getDate())
+        const finaldate =date.getFullYear() + '-' +
+            (date.getMonth() <= 9 ? `0${date.getMonth()+1}` : date.getMonth()+1) + '-' +
+            (date.getDate() <= 9 ? `0${date.getDate()}` : date.getDate())
 
         console.log(finaldate);
         
@@ -74,10 +77,10 @@ export default function Kassierer() {
 
     async function showSnackbar(){
         function closeSnackbar(){
-            setsnackBar(false);
+            setSnackBar(false);
         }
         
-        setsnackBar(true);
+        setSnackBar(true);
         if(timeout){
             clearTimeout(timeout);
             timeout=null;
@@ -85,13 +88,7 @@ export default function Kassierer() {
 
         timeout = setTimeout(closeSnackbar, 3000);
         
-        return ()=>{
-            if(timeout){
-                clearTimeout(timeout);
-                timeout=null;
-                
-            }
-        }
+
         
     }
     

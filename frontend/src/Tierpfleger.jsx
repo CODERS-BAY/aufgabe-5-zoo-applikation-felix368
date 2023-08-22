@@ -3,7 +3,7 @@ import {useState} from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import PflegerAnimalList from "./PflegerAnimalList.jsx";
-import PlegerSelectDialog from "../PflegerSelectDialog.jsx";
+import PlegerSelectDialog from "./PflegerSelectDialog.jsx";
 import SuccessSnackbar from "./SuccessSnackbar.jsx";
 
 export default function Tierpfleger() {
@@ -36,8 +36,8 @@ export default function Tierpfleger() {
     async function showAnimals(){
 
         
-        const data = fetch(`http://localhost:5207/api/Tierpfleger/getAnimal/${PflegerId}`)
-        return (await data).json();
+        const data = await fetch(`http://localhost:5207/api/Tierpfleger/getAnimal/${PflegerId}`)
+        return data.json();
 
 
     }
@@ -57,13 +57,7 @@ export default function Tierpfleger() {
 
         timeout = setTimeout(closeSnackbar, 3000);
 
-        return ()=>{
-            if(timeout){
-                clearTimeout(timeout);
-                timeout=null;
-
-            }
-        }
+        
 
     }
     
@@ -76,7 +70,7 @@ export default function Tierpfleger() {
     return (
         <>
             <h1>Tierpfleger</h1>
-            <TextField fullWidth onChange={(e)=>{ setPflegerId(e.target.value)}} label="Pfleger ID" id="fullWidth" />
+            <TextField fullWidth onChange={(e)=>{ setPflegerId(e.target.value)}} value={PflegerId} label="Pfleger ID" id="fullWidth" />
             <Button className={"searchButton"} variant="contained" onClick={async () => {
                 const data = await showAnimals()
                 setAnimalData(data)
@@ -90,7 +84,7 @@ export default function Tierpfleger() {
                 setSelectedAnimalData(animal)
             }}/>}
 
-            {showDialog && <PlegerSelectDialog animal={selectedAnimalData} okClick={(id,columnName,newData)=>{okDialog(id,columnName,newData)}} cancelClick={() =>{setShowDialog(false)}}/>}
+            {showDialog && <PlegerSelectDialog animal={selectedAnimalData} OnOkClick={(id, columnName, newData)=>{okDialog(id,columnName,newData)}} OnCancelClick={() =>{setShowDialog(false)}}/>}
             {snackBar && <SuccessSnackbar/>}
         </>
         

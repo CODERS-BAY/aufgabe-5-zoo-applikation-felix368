@@ -9,8 +9,7 @@ import Paper from '@mui/material/Paper';
 
 
 
-export default function TicketList(value) {
-    console.log(value.value[0])
+export default function TicketList({value}) {
 
     
     
@@ -26,9 +25,9 @@ export default function TicketList(value) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {value.value.map((row) => (
+                    {value.map((row) => (
                         <TableRow
-                            key={row.name}
+                            key={row.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell align="center">{row.id}</TableCell>

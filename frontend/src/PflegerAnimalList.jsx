@@ -11,8 +11,6 @@ import Paper from '@mui/material/Paper';
 
 export default function PflegerAnimalList({value,onTableRowClick}) {
 
-
-
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -27,7 +25,7 @@ export default function PflegerAnimalList({value,onTableRowClick}) {
                 <TableBody>
                     {value.map((row) => (
                         <TableRow
-                            key={row.name}
+                            key={row.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             className="PflegerAnimalList"
                             onClick={() => {
