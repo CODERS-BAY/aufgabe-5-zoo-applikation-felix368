@@ -34,7 +34,7 @@ public class Ticket : IComparable<Ticket>
         return $"Ticket Price:{price} \n time:{date}";
     }
 
-    public Dictionary<string, string> getTicketValues()
+    public Dictionary<string, string> GetTicketValues()
     {
         Dictionary<string, string> value = new Dictionary<string, string>();
         value.Add("id",$"{id}");

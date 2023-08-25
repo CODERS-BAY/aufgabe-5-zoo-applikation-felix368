@@ -45,7 +45,7 @@ public class Animal : IComparable<Animal>
     }
     
     
-    public Dictionary<string, string> getAnimalValues()
+    public Dictionary<string, string> GetAnimalValues()
     {
         Dictionary<string, string> value = new();
         value.Add("id",$"{id}");
