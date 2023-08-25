@@ -3,11 +3,12 @@
 public class Animal : IComparable<Animal>
 {
 
-    private int id;
-    private string gattung;
+    private int id { get; }
+    private string gattung { get; }
     private string nahrung;
     private int gehegeId;
-
+    
+    
 
     public Animal(int id, string gattung, string nahrung, int gehegeId)
     {
@@ -17,18 +18,27 @@ public class Animal : IComparable<Animal>
         this.gehegeId = gehegeId;
     }
 
+    public int Id => id;
 
     public int CompareTo(Animal? other)
     {
-        throw new NotImplementedException();
+        if (other == null) return 1;
+        return gattung.CompareTo(other.gattung);
     }
 
     public override bool Equals(object? obj)
     {
+        if (obj.GetType() != this.GetType()) return false;
+         
+        var animalOne = (Animal)(obj);
         
-        throw new NotImplementedException();
+        return (animalOne.id == this.id);
     }
 
+    
+    
+    
+    
     public override string ToString()
     {
         return $"id:{id},gattung:{gattung},nahrung:{nahrung},gehegeId:{gehegeId}";
@@ -37,7 +47,7 @@ public class Animal : IComparable<Animal>
     
     public Dictionary<string, string> getAnimalValues()
     {
-        Dictionary<string, string> value = new Dictionary<string, string>();
+        Dictionary<string, string> value = new();
         value.Add("id",$"{id}");
         value.Add("gattung", $"{gattung}");
         value.Add("nahrung",$"{nahrung}");
@@ -45,8 +55,6 @@ public class Animal : IComparable<Animal>
         
         return value;
     }
-    
-    
-    
+
     
 }

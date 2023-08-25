@@ -5,41 +5,17 @@ namespace ZooAPI.controller;
 
 public class SqlCommands
 {
-    static MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
-    {
-        Server = "localhost",
-        Database = "Zoo",
-        UserID = "root",
-        Password = "admin",
-        SslMode = MySqlSslMode.Disabled
-    };
+
     
     
     public static async Task NewSqlInsertCommand(String sqlCommand)
     {
-        await using (var conn = new MySqlConnection(builder.ConnectionString))
-        {
-            Console.WriteLine("Opening Conction");
-            await conn.OpenAsync();
-
-
-            await using (var command = conn.CreateCommand())
-            {
+        
+                var command =await DBConnection.getConnection();
                 command.CommandText = sqlCommand;
 
                 // exicute statment in database 
-                await using (var reander = await command.ExecuteReaderAsync())
-                {
-                    while (await reander.ReadAsync())
-                    {
-                        Console.WriteLine($"{reander.GetInt32(0)}");
-                        //Console.WriteLine($"Reading from table= ({reander.GetInt32(0)},{reander.GetString(1)})");
-                        
-                    }
-                }
-            }
-        }
-        
+                await using var reander = await command.ExecuteReaderAsync();
     }
 
     

@@ -38,12 +38,11 @@ app.UseSwagger();
 app.UseSwaggerUI(option =>
 {
     option.SwaggerEndpoint("/swagger/v1/swagger.json", "zoo");
-    option.RoutePrefix = string.Empty;
+    option.RoutePrefix = "";
 });
 
 app.UseCors(MyAllowSpecificOrigins);
 
-app.MapGet("/", () => "Hello World!");
 
 app.MapPost("/api/BuyTicket", async (HttpRequest request) =>
     {

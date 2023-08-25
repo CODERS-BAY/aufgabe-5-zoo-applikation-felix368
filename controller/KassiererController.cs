@@ -1,3 +1,4 @@
+using System.Text.Json.Nodes;
 using ZooAPI.model;
 
 namespace ZooAPI.controller;
@@ -14,13 +15,7 @@ public class KassiererController
         input = input.Replace(" ", "");
         var valuePare = input.Split(',');
         
-        Console.WriteLine("---");
-        Console.WriteLine(valuePare[1]);
-        Console.WriteLine("---");
-        
-        
         var dic = new Dictionary<string,int>();
-        
         
         for (int i = 0; i < valuePare.Length; i++)
         {
@@ -28,9 +23,7 @@ public class KassiererController
             Console.WriteLine(pare[0]);
             dic.Add(pare[0], int.Parse(pare[1]));
         }
-
         
-
         return dic;
     }
     
@@ -41,10 +34,10 @@ public class KassiererController
         double childPrice = 8.50;
         
         
-        List<double> ticketPrices = new List<double>();
+        List<double> ticketPrices = new();
 
-        var keys = dic.Keys;
-        foreach (var key in keys)
+        
+        foreach (var key in dic.Keys)
         {
             
             
