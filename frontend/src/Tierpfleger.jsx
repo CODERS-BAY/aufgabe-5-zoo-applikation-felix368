@@ -84,7 +84,7 @@ export default function Tierpfleger() {
                 setSelectedAnimalData(animal)
             }}/>}
 
-            {showDialog && <PlegerSelectDialog animal={selectedAnimalData} OnOkClick={(id, columnName, newData)=>{okDialog(id,columnName,newData)}} OnCancelClick={() =>{setShowDialog(false)}}/>}
+            {showDialog && <PlegerSelectDialog animal={selectedAnimalData} okClick={(id, columnName, newData)=>{okDialog(id, columnName, newData)}} cancelClick={() =>{setShowDialog(false)}}/>}
             {snackBar && <SuccessSnackbar/>}
         </>
         

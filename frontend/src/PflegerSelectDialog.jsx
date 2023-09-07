@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 
-export default function PlegerSelectDialog({animal,OnOkClick,OnCancelClick}) {
+export default function PlegerSelectDialog({animal,okClick,cancelClick}) {
     
     
     
@@ -50,8 +50,8 @@ export default function PlegerSelectDialog({animal,OnOkClick,OnCancelClick}) {
                     
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={()=>{OnCancelClick()}}>Cancel</Button>
-                    <Button onClick={()=>{OnOkClick(animal.id,columnName,newData)}}>Ok</Button>
+                    <Button onClick={()=>{cancelClick()}}>Cancel</Button>
+                    <Button onClick={()=>{okClick(animal.id,columnName,newData)}}>Ok</Button>
                 </DialogActions>
             </Dialog>
         </div>
