@@ -45,7 +45,7 @@ export default function PlegerSelectDialog({animal,okClick,cancelClick}) {
                             <MenuItem value={"nahrung"}>Nahrung</MenuItem>
                             <MenuItem value={"gehegeId"}>GehegeId</MenuItem>
                         </Select>
-                        <TextField onChange={(e)=>{ setNewData(e.target.value)}} label="Neue Daten" variant="outlined" />
+                        <TextField onChange={(e)=>{ setNewData(e.target.value)}} value={newData} label="Neue Daten" variant="outlined" />
                     </FormControl>
                     
                 </DialogContent>

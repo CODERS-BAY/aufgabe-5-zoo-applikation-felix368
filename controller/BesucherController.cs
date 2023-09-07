@@ -4,13 +4,13 @@ namespace ZooAPI.controller;
 
 public class BesucherController
 {
-    public static async Task<Dictionary<string, string>[]> getAnimalbyGattung(string searchAnimal)
+    public static async Task<Dictionary<string, string>[]> GetAnimalByGattung(string searchAnimal)
     {
         
-        var animals = await SqlCommands.getTiere($"select * from tiere where gattung = '{searchAnimal}';");
+        var animals = await SqlCommands.GetTiere($"select * from tiere where gattung = '{searchAnimal}';");
         
         
-        var animalvalues = new Dictionary<string,string>[animals.Count];
+        var animalValues = new Dictionary<string,string>[animals.Count];
         
 
         int counter = 0;
@@ -18,11 +18,11 @@ public class BesucherController
         {
             
             Console.WriteLine(animal.ToString());
-            animalvalues[counter] = animal.getAnimalValues();
+            animalValues[counter] = animal.GetAnimalValues();
             counter += 1;
         }
 
-        return animalvalues;
+        return animalValues;
     }
     
     

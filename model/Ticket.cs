@@ -4,7 +4,7 @@ public class Ticket : IComparable<Ticket>
 {
     private double price;
     private DateTime date;
-    private int id;
+    private int id { get; }
 
 
     public Ticket(double price, DateTime dateTime, int id)
@@ -16,12 +16,17 @@ public class Ticket : IComparable<Ticket>
 
     public int CompareTo(Ticket? other)
     {
-        throw new NotImplementedException();
+        if (other == null) return 1;
+        return id.CompareTo(other.id);
     }
 
     public override bool Equals(object? obj)
     {
-        throw new NotImplementedException();
+        if (obj.GetType() != this.GetType()) return false;
+         
+        var otherTicket = (Ticket)(obj);
+        
+        return (otherTicket.id == this.id);
     }
 
     public override string ToString()
@@ -29,7 +34,7 @@ public class Ticket : IComparable<Ticket>
         return $"Ticket Price:{price} \n time:{date}";
     }
 
-    public Dictionary<string, string> getTicketValues()
+    public Dictionary<string, string> GetTicketValues()
     {
         Dictionary<string, string> value = new Dictionary<string, string>();
         value.Add("id",$"{id}");

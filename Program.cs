@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
- 
+
 
 // set up open api
 builder.Services.AddEndpointsApiExplorer();
@@ -38,12 +38,11 @@ app.UseSwagger();
 app.UseSwaggerUI(option =>
 {
     option.SwaggerEndpoint("/swagger/v1/swagger.json", "zoo");
-    option.RoutePrefix = string.Empty;
+    option.RoutePrefix = "";
 });
 
 app.UseCors(MyAllowSpecificOrigins);
 
-app.MapGet("/", () => "Hello World!");
 
 app.MapPost("/api/BuyTicket", async (HttpRequest request) =>
     {
@@ -57,27 +56,27 @@ app.MapPost("/api/BuyTicket", async (HttpRequest request) =>
 app.MapGet("/api/getTickets/{date}", async (DateTime date) =>
 {
     // format 2023-08-03
-    var tickets = await KassiererController.getSoldTicets(date);
+    var tickets = await KassiererController.GetSoldTickets(date);
     return Results.Json(tickets);
 });
 
 app.MapGet("/api/getAnimal/{animalName}", async (string animalName) =>
 {
-    var animals = await BesucherController.getAnimalbyGattung(animalName);
+    var animals = await BesucherController.GetAnimalByGattung(animalName);
     return Results.Json(animals);
 });
 
 
 app.MapGet("/api/Tierpfleger/getAnimal/{id}", async (string id) =>
 {
-    var animals = await Tierpfleger.getAnimalbyPflegerId(id);
+    var animals = await Tierpfleger.GetAnimalByPflegerId(id);
     return Results.Json(animals);
 });
 
 
 app.MapGet("/api/Tierpfleger/updateAnimal/{AnimalId}&{columnName}&{newData}", async (string AnimalId,string columnName,string newData) =>
 {
-    await Tierpfleger.updateAnimal(AnimalId,columnName,newData);
+    await Tierpfleger.UpdateAnimal(AnimalId,columnName,newData);
     return Results.Accepted();
 });
 

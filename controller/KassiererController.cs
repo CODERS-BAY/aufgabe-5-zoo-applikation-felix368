@@ -1,3 +1,4 @@
+using System.Text.Json.Nodes;
 using ZooAPI.model;
 
 namespace ZooAPI.controller;
@@ -14,37 +15,29 @@ public class KassiererController
         input = input.Replace(" ", "");
         var valuePare = input.Split(',');
         
-        Console.WriteLine("---");
-        Console.WriteLine(valuePare[1]);
-        Console.WriteLine("---");
-        
-        
         var dic = new Dictionary<string,int>();
         
-        
-        for (int i = 0; i < valuePare.Length; i++)
+        for(int i = 0; i < valuePare.Length; i++)
         {
             var pare = valuePare[i].Split(":");
-            Console.WriteLine(pare[0]);
+            
             dic.Add(pare[0], int.Parse(pare[1]));
         }
-
         
-
         return dic;
     }
     
 
-    private static List<double> getPrices(Dictionary<string,int> dic)
+    private static List<double> GetPrices(Dictionary<string,int> dic)
     {
         double adultPrice = 8.50;
         double childPrice = 8.50;
         
         
-        List<double> ticketPrices = new List<double>();
+        List<double> ticketPrices = new();
 
-        var keys = dic.Keys;
-        foreach (var key in keys)
+        
+        foreach (var key in dic.Keys)
         {
             
             
@@ -74,7 +67,7 @@ public class KassiererController
     
         var dic = StringToDic(inputString);
 
-        var ticketPrices = getPrices(dic);
+        var ticketPrices = GetPrices(dic);
 
         double sum = 0;
         foreach (var ticketPrice in ticketPrices)
@@ -88,10 +81,10 @@ public class KassiererController
     }
 
 
-    public static async Task<Dictionary<string,string>[]> getSoldTicets(DateTime date)
+    public static async Task<Dictionary<string,string>[]> GetSoldTickets(DateTime date)
     {
         Console.WriteLine($"select * from Tickets where date(zeitpunkt) ='{date.ToString("yyyy-MM-dd")}'");
-        var tickets = await SqlCommands.getSoldTicketsByDate($"select * from Tickets where date(zeitpunkt) ='{date.ToString("yyyy-MM-dd")}'");
+        var tickets = await SqlCommands.GetSoldTicketsByDate($"select * from Tickets where date(zeitpunkt) ='{date.ToString("yyyy-MM-dd")}'");
 
         
         
@@ -102,7 +95,7 @@ public class KassiererController
         {
             
             Console.WriteLine(ticket.ToString());
-            ticketValues[counter] = ticket.getTicketValues();
+            ticketValues[counter] = ticket.GetTicketValues();
             counter += 1;
         }
 

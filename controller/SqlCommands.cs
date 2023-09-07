@@ -5,51 +5,27 @@ namespace ZooAPI.controller;
 
 public class SqlCommands
 {
-    static MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder
-    {
-        Server = "localhost",
-        Database = "Zoo",
-        UserID = "root",
-        Password = "admin",
-        SslMode = MySqlSslMode.Disabled
-    };
+
     
     
     public static async Task NewSqlInsertCommand(String sqlCommand)
     {
-        await using (var conn = new MySqlConnection(builder.ConnectionString))
-        {
-            Console.WriteLine("Opening Conction");
-            await conn.OpenAsync();
-
-
-            await using (var command = conn.CreateCommand())
-            {
+        
+                var command =await DBConnection.GetConnection();
                 command.CommandText = sqlCommand;
 
                 // exicute statment in database 
-                await using (var reander = await command.ExecuteReaderAsync())
-                {
-                    while (await reander.ReadAsync())
-                    {
-                        Console.WriteLine($"{reander.GetInt32(0)}");
-                        //Console.WriteLine($"Reading from table= ({reander.GetInt32(0)},{reander.GetString(1)})");
-                        
-                    }
-                }
-            }
-        }
-        
+                await using var reander = await command.ExecuteReaderAsync();
     }
 
     
     
     
-    public static async Task<List<Ticket>> getSoldTicketsByDate(String sqlCommand)
+    public static async Task<List<Ticket>> GetSoldTicketsByDate(String sqlCommand)
     {
-        List<Ticket> tickets = new List<Ticket>();
+        List<Ticket> tickets = new();
 
-        var command = await DBConnection.getConnection();
+        var command = await DBConnection.GetConnection();
         command.CommandText = sqlCommand;
                 
                 
@@ -74,11 +50,11 @@ public class SqlCommands
     
    
     
-    public static async Task<List<Animal>> getTiere(String sqlCommand)
+    public static async Task<List<Animal>> GetTiere(String sqlCommand)
     {
-        List<Animal> animals = new List<Animal>();
+        List<Animal> animals = new();
 
-        var command = await DBConnection.getConnection();
+        var command = await DBConnection.GetConnection();
         command.CommandText = sqlCommand;
         
                 
@@ -98,33 +74,6 @@ public class SqlCommands
         return animals;
     }
     
-    
-    
-    
-    public static async Task<List<Animal>> updateTierebyId(String sqlCommand)
-    {
-        List<Animal> animals = new List<Animal>();
-        
-        var command = await DBConnection.getConnection();
-        command.CommandText = sqlCommand;
-
-                
-                
-        // exicute statment in database 
-        await using (var reander = await command.ExecuteReaderAsync())
-        {
-                    
-            while (await reander.ReadAsync())
-            {
-                var currentAnimal = new Animal(reander.GetInt32(0),reander.GetString(1),reander.GetString(2),reander.GetInt32(3));
-                        
-                animals.Add(currentAnimal);
-                        
-            } 
-        }
-        
-        return animals;
-    }
     
     
 }
